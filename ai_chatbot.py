@@ -1,3 +1,4 @@
+print("Script dimulai...")
 import torch
 from transformers import AutoModelForCausalLM, AutoTokenizer
 
@@ -11,7 +12,7 @@ def chatbot():
 
     # Loop percakapan
     chat_history_ids = None
-    max_length = 1000  # Batasi panjang total percakapan
+    max_length = 1000  #total percakapan
     while True:
         user_input = input("Anda: ").strip()
         if user_input.lower() == "keluar":
@@ -36,12 +37,11 @@ def chatbot():
         # Generate respons
         chat_history_ids = model.generate(
             bot_input_ids,
-            attention_mask=attention_mask,  # Menggunakan attention mask
+            attention_mask=attention_mask, 
             max_length=1000,
             pad_token_id=tokenizer.eos_token_id
         )
 
-        # Decode dan tampilkan respons chatbot
         response = tokenizer.decode(chat_history_ids[:, bot_input_ids.shape[-1]:][0], skip_special_tokens=True)
         print(f"Chatbot: {response}")
 
